@@ -21,7 +21,7 @@ class CSVFile():
         except Exception as e:
             
             # Stampo l'errore
-            print('Error: ',e)
+            print('Errore incontrato: ',e)
             
             # Esco dalla funzione ritornando niente
             return None
@@ -39,19 +39,15 @@ class CSVFile():
                 date = elements[0] 
                 value = elements[1]
 
-                                # La variabile "value" al momento e' ancora una stringa, poiche' ho letto da file di testo,
-                # quindi converto a valore floating point, e se nel farlo ho un errore avverto. Questo e'
-                # un errore "recoverable", posso proseguire (semplicemente salto la linea).
-
-                # Provo se il valore è float
                 try:
+                    # Converto a il valore a float
                     value = float(value)
 
-                # Lancio l'eccezione
+                # Se non ci riesco lancio l'eccezione
                 except Exception as e:
                     
                     # Stampo l'errore
-                    print('Error: ',e)
+                    print('Errore incontrato: ',e)
                     
                     # Posso recuperare l'errore
                     continue
