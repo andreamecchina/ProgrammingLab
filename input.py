@@ -32,19 +32,19 @@ class CSVFile():
             # Errore non recuperabile
             return None
  
-        # Indici righe devono essere interi
-        if not isinstance(start,int) and not isinstance(end,int):
+        # Se do gli estremi
+        if (start is not None) and (end is not None):
+        
+            # Indici righe devono essere interi
+            if not isinstance(start,int) and not isinstance(end,int):
 
-            # Errore non recuperabile
-            raise Exception('estremi intervallo non interi')
-
-        # Altrimenti errore se non do gli estremi
-        if start is not None and end is not None:
+                # Errore non recuperabile
+                raise Exception('estremi intervallo non interi')
 
             # Primo indice minore o uguale al secondo   
             if not start <= end:
 
-                # Lanio l'eccezione
+                # Lancio l'eccezione
                 raise Exception('il primo estremo deve essere <= rispetto al secondo')
 
         # Apro e leggo il file, linea per linea
@@ -76,16 +76,30 @@ class CSVFile():
                 # Aggiungo alla lista dei valori questo valore
                 total_values.append(value)
 
-        if start<=0 or end>len(total_values):
-            raise Exception('input fuori dagli estremi di intervallo')
+        # Se do gli estremi
+        if (start is not None) and (end is not None):
 
-        return total_values[start-1:end]
+            # Controllo gli estremi
+            if start<=0 or end>len(total_values):
+
+                raise Exception('input fuori dagli estremi di intervallo')
+
+            # Sistemo primo indice
+            start -= 1
+
+        return total_values[start:end]
 
 # Test
 try:
     file = CSVFile("shampoo_sales.csv")
-    data = file.get_data(1,5)
-    print("Data = ",data)
+
+    # Provo passando le righe
+    data1 = file.get_data(1,4)
+    print("Data = ",data1)
+
+    # Controllo funzioni ancora senza passare le righe
+    data2 = file.get_data()
+    print("Data = ",data2)
 
 # Raccolgo l'eccezione
 except Exception as e:
